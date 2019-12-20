@@ -18,7 +18,7 @@ SHELL := /usr/bin/env bash
 PROJECT?=must-override
 
 .PHONY: all
-all: build test
+all: build test image
 
 .PHONY: gazell-update
 gazelle-update:
@@ -63,6 +63,13 @@ clean:
 .PHONY: gen
 gen: build
 	bazel-bin/darwin_amd64_stripped/gke-tf gen -d /tmp/tf/ -f examples/full.yaml -o -p ${PROJECT}
+
+.PHONY: image
+image:
+	@rm -rf bin
+	@mkdir -p bin
+	@cp bazel-bin/linux_amd64_stripped/gke-tf bin
+	@sudo docker build -t nwmworld/poc .
 
 lint: check_shell check_python check_golang check_terraform check_docker \
 	check_base_files check_headers check_trailing_whitespace
