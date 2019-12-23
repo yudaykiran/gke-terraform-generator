@@ -17,20 +17,20 @@ limitations under the License.
 // Vanilla based terraform
 
 provider "google" {
-  version = "2.13.0"
+  version = "~> 2.20.0"
   project = var.project_id
   region  = var.region
 }
 
 provider "google-beta" {
-  version = "2.13.0"
+  version = "~> 2.20.0"
   project = var.project_id
   region  = var.region
 }
 
 
 resource "google_container_cluster" "cluster" {
-  provider = "google-beta"
+  provider = google-beta
 
   name     = var.cluster_name
   project  = var.project_id
@@ -250,7 +250,7 @@ resource "google_container_cluster" "cluster" {
 {{- $root := . }}
 {{- range .Spec.NodePools}}
 resource "google_container_node_pool" "{{.Name}}-np" {
-  provider   = "google-beta"
+  provider   = google-beta
   name       = "{{.Name}}"
   {{- if eq $root.Spec.Regional "true" }}
   location   = var.region

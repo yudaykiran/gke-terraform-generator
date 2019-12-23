@@ -22,7 +22,7 @@ variable "project_id" {
 }
 
 variable "project_services" {
-  type = "list"
+  type = list(string)
 
   default = [
     "cloudresourcemanager.googleapis.com",
@@ -61,7 +61,7 @@ variable "cluster_name" {
 }
 
 variable "service_account_iam_roles" {
-  type = "list"
+  type = list(string)
 
   default = [
     "roles/logging.logWriter",
@@ -75,7 +75,7 @@ variable "service_account_iam_roles" {
 }
 
 variable "service_account_custom_iam_roles" {
-  type    = "list"
+  type    = list(string)
   default = []
 
   description = <<-EOF
