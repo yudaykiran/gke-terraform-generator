@@ -227,7 +227,7 @@ resource "google_container_cluster" "cluster" {
 {{- end}}
 
   lifecycle {
-    ignore_changes = ["initial_node_count"]
+    ignore_changes = [initial_node_count]
   }
 
   timeouts {
@@ -237,9 +237,9 @@ resource "google_container_cluster" "cluster" {
   }
 
   depends_on = [
-    "google_project_service.service",
-    "google_project_iam_member.service-account",
-    "google_project_iam_member.service-account-custom",
+    google_project_service.service,
+    google_project_iam_member.service-account,
+    google_project_iam_member.service-account-custom,
 {{- if eq .Spec.Private "true" }}
     "google_compute_router_nat.nat",
 {{- end}}
@@ -392,7 +392,7 @@ resource "google_container_node_pool" "{{.Name}}-np" {
   }
 
   depends_on = [
-    "google_container_cluster.cluster",
+    google_container_cluster.cluster,
   ]
 }
 {{- end }}
